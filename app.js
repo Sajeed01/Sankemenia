@@ -21,8 +21,19 @@ function main(ctime){
     lastPaintTime = ctime;
     gameEngine();
 }
-function isCollide(sarr){
-    return false;
+//collide function 
+function isCollide(snake){
+    //if snake bump into itself
+    for (let i = 1; i < snakeArr.length; i++){
+        if(snake[i].x === snake[0].x && snake[i].y === snake[0].y){
+            return true;
+        }
+    }
+    //if collided with the border
+    if(snake[0].x>= 18 || snake[0].x <=0 || snake[0].y >= 18 || snake[0].y <= 0){
+            return true;
+        }     
+        return false;  
 }
 
 function gameEngine(){
@@ -31,14 +42,16 @@ function gameEngine(){
         gameOverSound.play()
         musicSound.pause()
         inputDir = {x:0, y:0}
-        alert('Game Over! Press any key to play again')
+        alert('Game Over! Press any key to play again');
         snakeArr[{x: 13, y: 15}];
-        musicSound.play();
+        // musicSound.play();
         score = 0;
     }
     //if u have eaten the food then increament the score n regerate the food 
     if(snakeArr[0].y == food.y && snakeArr[0].x == food.x){
         foodSound.play();
+        score += 1;
+        scoreBox.innerHTML = "Score: "+score
         snakeArr.unshift({x:snakeArr[0].x + inputDir.x, y: snakeArr[0].y + inputDir.y});
         let a = 2;
         let b = 16;
@@ -75,16 +88,6 @@ function gameEngine(){
     
     board.appendChild(foodElement);
 }
-
-
-
-
-
-
-
-
-
-
 //main logic starts here
 window.requestAnimationFrame(main);
 window.addEventListener('keydown', e =>{
