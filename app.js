@@ -1,9 +1,9 @@
 //game constants and variables
 let direction ={x:0, y:0}//intital direction of snake is 0
-const foodSound = new Audio('food.mp3');
-const gameOverSound = new Audio('gameover.mp3');
-const moveSound = new Audio('move.mp3');
-const musicSound = new Audio('music.mp3');
+const foodSound = new Audio('music/food.mp3');
+const gameOverSound = new Audio('music/gameover.mp3');
+const moveSound = new Audio('music/move.mp3');
+const musicSound = new Audio('music/music.mp3');
 let speed = 2;
 let lastPaintTime = 0;
 let snakeArr = [
@@ -59,4 +59,33 @@ function gameEngine(){
 
 
 //main logic starts here
-window.requestAnimationFrame(main)
+window.requestAnimationFrame(main);
+window.addEventListener('keydown', e =>{
+    snakeVelocity = {X:0, Y:1}//start the game 
+    moveSound.play();
+    switch (e.key) {
+            case 'ArrowUp':
+                snakeVelocity.X=0;
+                snakeVelocity.Y=-1;
+                console.log('ArrowUp');
+                break;
+            case 'ArrowDown':
+                snakeVelocity.X=0;
+                snakeVelocity.Y=1;
+                console.log('ArrowDown');
+                break;
+            case 'ArrowLeft':
+                snakeVelocity.X=-1;
+                snakeVelocity.Y=0;
+                console.log('ArrowLeft');
+                break;
+            case 'ArrowRight':
+                snakeVelocity.X=1;
+                snakeVelocity.Y=0;
+                console.log('ArrowRight');
+                break;
+    
+        default:
+            break;
+    }
+})
