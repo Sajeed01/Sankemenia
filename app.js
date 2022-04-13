@@ -39,18 +39,23 @@ function isCollide(snake){
 function gameEngine(){
     //part1 : updating the sanke array and food 
     if(isCollide(snakeArr)){
-        gameOverSound.play()
-        musicSound.pause()
-        inputDir = {x:0, y:0}
+        gameOverSound.play();
+        musicSound.pause();
+        inputDir = {x:0, y:0};
         alert('Game Over! Press any key to play again');
         snakeArr[{x: 13, y: 15}];
-        // musicSound.play();
+        musicSound.play();
         score = 0;
     }
     //if u have eaten the food then increament the score n regerate the food 
-    if(snakeArr[0].y == food.y && snakeArr[0].x == food.x){
+    if(snakeArr[0].y === food.y && snakeArr[0].x === food.x){
         foodSound.play();
         score += 1;
+        if(score>hiscoreval){
+            hiscoreval  = score;
+            localStorage.setItem('hiscore',JSON.stringify(hiscoreval))
+            hiscoreBox.innerHTML = 'HiScore: ' +hiscoreval;
+        }
         scoreBox.innerHTML = "Score: "+score
         snakeArr.unshift({x:snakeArr[0].x + inputDir.x, y: snakeArr[0].y + inputDir.y});
         let a = 2;
@@ -89,6 +94,16 @@ function gameEngine(){
     board.appendChild(foodElement);
 }
 //main logic starts here
+musicSound.play()
+let hiscore = localStorage.getItem('hiscore');
+if(hiscore === null){
+    let hiscoreval = 0;
+    localStorage.setItem('hiscore',JSON.stringify(hiscoreval))
+}
+else{
+    hiscoreval = JSON.parse(hiscore)
+    hiscoreBox.innerHTML = 'HiScore: ' +hiscore
+}
 window.requestAnimationFrame(main);
 window.addEventListener('keydown', e =>{
     inputDir = {X:0, Y:1}//start the game 

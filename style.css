@@ -13,6 +13,13 @@
 }
 #scoreBox{
     position: absolute;
+    top: 53px;
+    right: 200px;
+    font-size: 35px;
+    font-weight: bold;
+}
+#hiscoreBox{
+    position: absolute;
     top: 9px;
     right: 200px;
     font-size: 35px;
